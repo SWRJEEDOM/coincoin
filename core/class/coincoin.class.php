@@ -246,7 +246,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
         $coincoin_set = $this->getCmd(null, 'coincoin_set');
         if (!is_object($coincoin_set)) {
             $coincoin_set = new coincoinCmd();
-            $coincoin_set->setIsVisible(1);
+            $coincoin_set->setIsVisible(0);
             $coincoin_set->setOrder(1);
          $coincoin_set->setDisplay('icon', '<i class="fas fa-link"></i>');
             $coincoin_set->setName(__('Value ID', __FILE__));
@@ -261,7 +261,8 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
         $refresh = $this->getCmd(null, 'refresh');
      	if (!is_object($refresh)) {
      		$refresh = new coincoinCmd();
-     		$refresh->setOrder(7);
+		  $coincoin_set->setIsVisible(0);
+     		$refresh->setOrder(1);
         //   $refresh_song->setDisplay('icon', '<i class="fas jeedomapp-reload"></i>');
      		$refresh->setName(__('Rafraichir', __FILE__));
      	}
@@ -278,7 +279,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
      	}
      	$symbol->setLogicalId('symbol');
      	$symbol->setEqLogic_id($this->getId());
-     	$symbol->setIsVisible(0);
+     	$symbol->setIsVisible(1);
      	$symbol->setType('info');
      	$symbol->setSubType('string');
      	$symbol->save();
@@ -291,7 +292,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
      	}
      	$id_name->setLogicalId('id_name');
      	$id_name->setEqLogic_id($this->getId());
-     	$id_name->setIsVisible(0);
+     	$id_name->setIsVisible(1);
      	$id_name->setType('info');
      	$id_name->setSubType('string');
      	$id_name->save();
@@ -303,7 +304,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
      	}
      	$n_name->setLogicalId('n_name');
      	$n_name->setEqLogic_id($this->getId());
-     	$n_name->setIsVisible(0);
+     	$n_name->setIsVisible(1);
      	$n_name->setType('info');
      	$n_name->setSubType('string');
      	$n_name->save();
@@ -315,7 +316,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
      	}
      	$current_price->setLogicalId('current_price');
      	$current_price->setEqLogic_id($this->getId());
-     	$current_price->setIsVisible(0);
+     	$current_price->setIsVisible(1);
      	$current_price->setType('info');
      	$current_price->setSubType('string');
      	$current_price->save();
@@ -328,7 +329,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
      	}
      	$price_change->setLogicalId('price_change');
      	$price_change->setEqLogic_id($this->getId());
-     	$price_change->setIsVisible(0);
+     	$price_change->setIsVisible(1);
      	$price_change->setType('info');
      	$price_change->setSubType('string');
      	$price_change->save();
@@ -341,7 +342,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
      	}
      	$last_updated->setLogicalId('last_updated');
      	$last_updated->setEqLogic_id($this->getId());
-     	$last_updated->setIsVisible(0);
+     	$last_updated->setIsVisible(1);
      	$last_updated->setType('info');
      	$last_updated->setSubType('string');
      	$last_updated->save();
@@ -354,7 +355,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
      	}
      	$image->setLogicalId('image');
      	$image->setEqLogic_id($this->getId());
-     	$image->setIsVisible(0);
+     	$image->setIsVisible(1);
      	$image->setType('info');
      	$image->setSubType('string');
      	$image->save();
@@ -366,7 +367,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
      	}
      	$total_volume->setLogicalId('total_volume');
      	$total_volume->setEqLogic_id($this->getId());
-     	$total_volume->setIsVisible(0);
+     	$total_volume->setIsVisible(1);
      	$total_volume->setType('info');
      	$total_volume->setSubType('string');
      	$total_volume->save();
@@ -379,7 +380,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
      	}
      	$high_24->setLogicalId('high_24');
      	$high_24->setEqLogic_id($this->getId());
-     	$high_24->setIsVisible(0);
+     	$high_24->setIsVisible(1);
      	$high_24->setType('info');
      	$high_24->setSubType('string');
      	$high_24->save();
@@ -391,7 +392,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
      	}
      	$low_24->setLogicalId('low_24');
      	$low_24->setEqLogic_id($this->getId());
-     	$low_24->setIsVisible(0);
+     	$low_24->setIsVisible(1);
      	$low_24->setType('info');
      	$low_24->setSubType('string');
      	$low_24->save();
