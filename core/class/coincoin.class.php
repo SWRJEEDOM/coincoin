@@ -60,13 +60,15 @@ class coincoin extends eqLogic
      	
      	$value_param=$this->getConfiguration('value_param');
      	log::add('coincoin', 'info', 'Value param : '.$value_param);
+       	$value_currency=$this->getConfiguration('value_currency');
+		log::add('coincoin', 'info', 'Value_currency : '.$value_currency);
       
-		$api = "https://api.coingecko.com/api/v3/coins/markets";
+        $api = "https://api.coingecko.com/api/v3/coins/markets";
 		if (empty($value_param)){
-        $cmd = "vs_currency=eur&ids=".$message;
+        $cmd = "vs_currency=".$value_currency."&ids=".$message;
         }
       else{
-        $cmd = "vs_currency=eur&ids=".$value_param;
+        $cmd = "vs_currency=".$value_currency."&ids=".$value_param;
       }
       $api=$api."?".$cmd;
      	
@@ -131,6 +133,8 @@ $this->checkAndUpdateCmd('high_24',$jsonKey['high_24h']);
       log::add('coincoin', 'info', 'low_24h : ' . $jsonKey['low_24h']);
 $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
   
+        log::add('coincoin', 'info', 'currency : ' .$value_currency);
+$this->checkAndUpdateCmd('currency',	$value_currency);
   
      
 }
@@ -221,7 +225,16 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
 
             // throw new Exception(__('L\'URL est renseigné '.$this->getConfiguration('param1'),__FILE__));
      	}
+     
+       
+       	if (empty($this->getConfiguration('value_currency'))) {
+     		throw new Exception(__('La devise doit être renseigné', __FILE__));
+     	} else {
+
+            // throw new Exception(__('L\'URL est renseigné '.$this->getConfiguration('param1'),__FILE__));
+     	}
      	
+       
      }
 
     // Fonction exécutée automatiquement après la mise à jour de l'équipement 
@@ -258,7 +271,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
         $coincoin_set->save();
        
        
-        $refresh = $this->getCmd(null, 'refresh');
+       /* $refresh = $this->getCmd(null, 'refresh');
      	if (!is_object($refresh)) {
      		$refresh = new coincoinCmd();
 		  $coincoin_set->setIsVisible(0);
@@ -271,6 +284,7 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
      	$refresh->setType('action');
      	$refresh->setSubType('other');
      	$refresh->save();
+       */
        
        	$symbol = $this->getCmd(null, 'symbol');
      	if (!is_object($symbol)) {
@@ -396,6 +410,19 @@ $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
      	$low_24->setType('info');
      	$low_24->setSubType('string');
      	$low_24->save();
+     	
+       
+         	$currency = $this->getCmd(null, 'currency');
+     	if (!is_object($currency)) {
+     		$currency = new coincoinCmd();
+     		$currency->setName(__('currency', __FILE__));
+     	}
+     	$currency->setLogicalId('currency');
+     	$currency->setEqLogic_id($this->getId());
+     	$currency->setIsVisible(1);
+     	$currency->setType('info');
+     	$currency->setSubType('string');
+     	$currency->save();
      	
        
        
