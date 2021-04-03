@@ -118,120 +118,120 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								</div>
 							</div>
 							<br>
-						
+							
 
 							<legend><i class="fas fa-cogs"></i> {{SOURCE}}</legend>
-								<div class="Nom">
-									<label class="col-sm-3 control-label">{{Nom}}</label>
-									<div class="col-sm-7">
-										<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="value_param" placeholder="{{bitcoin}}"/>
-									</div>
-								</div>
-                                
-                                
-                                
-                                	<legend><i class="fas fa-cogs"></i> {{SOURCE}}</legend>
-								<div class="Nom">
-									<label class="col-sm-3 control-label">{{Devise}}</label>
-									<div class="col-sm-7">
-										<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="value_currency" placeholder="{{eur}}"/>
-									</div>
-								</div>
-														
-								<!-- Champ de saisie du cron d'auto-actualisation + assistant cron -->
-								<!-- La fonction cron de la classe du plugin doit contenir le code prévu pour que ce champ soit fonctionnel -->
-								
-								
-							</div>
-
-							<!-- Partie droite de l'onglet "Équipement" -->
-							<!-- Affiche l'icône du plugin par défaut mais vous pouvez y afficher les informations de votre choix -->
-							<div class="col-lg-5">
-								<legend><i class="fas fa-info"></i> {{Informations}}</legend>
-								<div class="form-group">
-									<div class="text-center">
-										<img name="icon_visu" src="<?= $plugin->getPathImgIcon(); ?>" style="max-width:160px;"/>
-									</div>
+							<div class="Nom">
+								<label class="col-sm-3 control-label">{{Nom}}</label>
+								<div class="col-sm-7">
+									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="value_param" placeholder="{{bitcoin}}"/>
 								</div>
 							</div>
-						</fieldset>
-					</form>
-					<hr>
-				</div><!-- /.tabpanel #eqlogictab-->
+							
+							
+							
+							<legend><i class="fas fa-cogs"></i> {{SOURCE}}</legend>
+							<div class="Nom">
+								<label class="col-sm-3 control-label">{{Devise}}</label>
+								<div class="col-sm-7">
+									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="value_currency" placeholder="{{eur}}"/>
+								</div>
+							</div>
+							
+							<!-- Champ de saisie du cron d'auto-actualisation + assistant cron -->
+							<!-- La fonction cron de la classe du plugin doit contenir le code prévu pour que ce champ soit fonctionnel -->
+							
+							
+						</div>
 
-				<!-- Onglet des commandes de l'équipement -->
-				<div role="tabpanel" class="tab-pane" id="commandtab">
-					<a class="btn btn-default btn-sm pull-right cmdAction" data-action="add" style="margin-top:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une commande}}</a>
-					<br/><br/>
-					<div class="table-responsive">
-						<table id="table_cmd" class="table table-bordered table-condensed">
-							<thead>
-								<tr>
-									<th>{{Id}}</th>
-									<th>{{Nom}}</th>
-									<th>{{Type}}</th>
-									<th>{{Options}}</th>
-									<th>{{Paramètres}}</th>
-									<th>{{Action}}</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-					</div>
-				</div><!-- /.tabpanel #commandtab-->
-				
-				<!-- Onglet des commandes de l'équipement -->
-				<div role="tabpanel" class="tab-pane" id="infotab">
-					<a class="btn btn-default btn-sm pull-right cmdAction" data-action="add" style="margin-top:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une commande}}</a>
-					<br/><br/>
-					<div class="table-responsive">
-						<table id="table_info" class="table table-bordered table-condensed">
-							<thead>
-								<tr>
-									<th>{{Id}}</th>
-									<th>{{Nom}}</th>
-									<th>{{Type}}</th>
-									<th>{{Options}}</th>
-									<th>{{Paramètres}}</th>
-									<th>{{Action}}</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-					</div>
-				</div><!-- /.tabpanel #infotab-->
-				
-				<!-- Onglet des commandes de l'équipement -->
-				<div role="tabpanel" class="tab-pane" id="ostab">
-					<a class="btn btn-default btn-sm pull-right cmdAction" data-action="add" style="margin-top:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une commande}}</a>
-					<br/><br/>
-					<div class="table-responsive">
-						<table id="table_os" class="table table-bordered table-condensed">
-							<thead>
-								<tr>
-									<th>{{Id}}</th>
-									<th>{{Nom}}</th>
-									<th>{{Type}}</th>
-									<th>{{Options}}</th>
-									<th>{{Paramètres}}</th>
-									<th>{{Action}}</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-					</div>
-				</div><!-- /.tabpanel #ostab-->
-				
-				
+						<!-- Partie droite de l'onglet "Équipement" -->
+						<!-- Affiche l'icône du plugin par défaut mais vous pouvez y afficher les informations de votre choix -->
+						<div class="col-lg-5">
+							<legend><i class="fas fa-info"></i> {{Informations}}</legend>
+							<div class="form-group">
+								<div class="text-center">
+									<img name="icon_visu" src="<?= $plugin->getPathImgIcon(); ?>" style="max-width:160px;"/>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+				<hr>
+			</div><!-- /.tabpanel #eqlogictab-->
 
-			</div><!-- /.tab-content -->
-		</div><!-- /.eqLogic -->
-	</div><!-- /.row row-overflow -->
+			<!-- Onglet des commandes de l'équipement -->
+			<div role="tabpanel" class="tab-pane" id="commandtab">
+				<a class="btn btn-default btn-sm pull-right cmdAction" data-action="add" style="margin-top:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une commande}}</a>
+				<br/><br/>
+				<div class="table-responsive">
+					<table id="table_cmd" class="table table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th>{{Id}}</th>
+								<th>{{Nom}}</th>
+								<th>{{Type}}</th>
+								<th>{{Options}}</th>
+								<th>{{Paramètres}}</th>
+								<th>{{Action}}</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div><!-- /.tabpanel #commandtab-->
+			
+			<!-- Onglet des commandes de l'équipement -->
+			<div role="tabpanel" class="tab-pane" id="infotab">
+				<a class="btn btn-default btn-sm pull-right cmdAction" data-action="add" style="margin-top:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une commande}}</a>
+				<br/><br/>
+				<div class="table-responsive">
+					<table id="table_info" class="table table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th>{{Id}}</th>
+								<th>{{Nom}}</th>
+								<th>{{Type}}</th>
+								<th>{{Options}}</th>
+								<th>{{Paramètres}}</th>
+								<th>{{Action}}</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div><!-- /.tabpanel #infotab-->
+			
+			<!-- Onglet des commandes de l'équipement -->
+			<div role="tabpanel" class="tab-pane" id="ostab">
+				<a class="btn btn-default btn-sm pull-right cmdAction" data-action="add" style="margin-top:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une commande}}</a>
+				<br/><br/>
+				<div class="table-responsive">
+					<table id="table_os" class="table table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th>{{Id}}</th>
+								<th>{{Nom}}</th>
+								<th>{{Type}}</th>
+								<th>{{Options}}</th>
+								<th>{{Paramètres}}</th>
+								<th>{{Action}}</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div><!-- /.tabpanel #ostab-->
+			
+			
 
-	<!-- Inclusion du fichier javascript du plugin (dossier, nom_du_fichier, extension_du_fichier, id_du_plugin) -->
-	<?php include_file('desktop', 'coincoin', 'js', 'coincoin');?>
-	<!-- Inclusion du fichier javascript du core - NE PAS MODIFIER NI SUPPRIMER -->
-	<?php include_file('core', 'plugin.template', 'js');?>
+		</div><!-- /.tab-content -->
+	</div><!-- /.eqLogic -->
+</div><!-- /.row row-overflow -->
+
+<!-- Inclusion du fichier javascript du plugin (dossier, nom_du_fichier, extension_du_fichier, id_du_plugin) -->
+<?php include_file('desktop', 'coincoin', 'js', 'coincoin');?>
+<!-- Inclusion du fichier javascript du core - NE PAS MODIFIER NI SUPPRIMER -->
+<?php include_file('core', 'plugin.template', 'js');?>
