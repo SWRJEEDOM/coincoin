@@ -88,7 +88,7 @@ class coincoin extends eqLogic
      	
       $json = file_get_contents($api);
 
-
+if($json === FALSE) { } else {
 //Step 2: Decodage du JSON et recuperation des infos souhaitees
 $jsonData = json_decode($json,true);
 //$scenario->setlog('-----DECODE-----');
@@ -103,7 +103,7 @@ foreach ($jsonData as $value=>$jsonKey)
 log::add('coincoin', 'info', 'id_name : ' . $jsonKey['id']);
 $this->checkAndUpdateCmd('id_name',$jsonKey['id']);
 
-log::add('coincoin', 'info', 'id_name : ' . $jsonKey['symbol']);
+log::add('coincoin', 'info', 'symbol: ' . $jsonKey['symbol']);
 $this->checkAndUpdateCmd('symbol',$jsonKey['symbol']);
   
 log::add('coincoin', 'info', 'name : ' . $jsonKey['name']);
@@ -120,8 +120,8 @@ $this->checkAndUpdateCmd('price_change',$jsonKey['price_change_percentage_24h'])
   log::add('coincoin', 'info', 'last_updated : ' . $jsonKey['last_updated']);
 $this->checkAndUpdateCmd('last_updated',$jsonKey['last_updated']);
   
-  log::add('coincoin', 'info', 'image : ' . $jsonKey['image']);
-$this->checkAndUpdateCmd('image',$jsonKey['image']);
+  log::add('coincoin', 'info', 'image : ' . "<img src=".$jsonKey['image'].">]");
+$this->checkAndUpdateCmd('image',"<img width='64' height='64' src=".$jsonKey['image'].">");
 
     log::add('coincoin', 'info', 'total_volume : ' . $jsonKey['total_volume']);
 $this->checkAndUpdateCmd('total_volume',$jsonKey['total_volume']);
@@ -138,7 +138,7 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
   
      
 }
-}
+}} 
     }
      
    
