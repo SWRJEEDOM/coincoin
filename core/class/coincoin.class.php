@@ -107,11 +107,11 @@ log::add('coincoin', 'info', 'symbol: ' . $jsonKey['symbol']);
 $this->checkAndUpdateCmd('symbol',$jsonKey['symbol']);
   
 log::add('coincoin', 'info', 'name : ' . $jsonKey['name']);
-$this->checkAndUpdateCmd('n_name',$jsonKey['name']);
+$this->checkAndUpdateCmd('n_name',"<p style='font-size:25px'><strong>".$jsonKey['name']."</strong></p>");
 
   
 log::add('coincoin', 'info', 'current_price : ' . $jsonKey['current_price']);
-$this->checkAndUpdateCmd('current_price',$jsonKey['current_price']);
+$this->checkAndUpdateCmd('current_price',"<p style='font-size:25px'><strong>".$jsonKey['current_price']."</strong> ".ucwords($value_currency)."</p><br>");
 
 log::add('coincoin', 'info', 'price_change : ' . $jsonKey['price_change_percentage_24h']);
 $this->checkAndUpdateCmd('price_change',$jsonKey['price_change_percentage_24h']);
@@ -134,7 +134,7 @@ $this->checkAndUpdateCmd('high_24',$jsonKey['high_24h']);
 $this->checkAndUpdateCmd('low_24',$jsonKey['low_24h']);
   
         log::add('coincoin', 'info', 'currency : ' .$value_currency);
-$this->checkAndUpdateCmd('currency',	$value_currency);
+$this->checkAndUpdateCmd('currency',$value_currency);
   
      
 }
@@ -270,8 +270,7 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
         $coincoin_set->setSubType('message');
         $coincoin_set->save();
        
-       
-       /* $refresh = $this->getCmd(null, 'refresh');
+        $refresh = $this->getCmd(null, 'refresh');
      	if (!is_object($refresh)) {
      		$refresh = new coincoinCmd();
 		  $coincoin_set->setIsVisible(0);
@@ -283,8 +282,8 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
      	$refresh->setLogicalId('refresh');
      	$refresh->setType('action');
      	$refresh->setSubType('other');
-     	$refresh->save();
-       */
+     	$refresh->save();   
+        
        
        	$symbol = $this->getCmd(null, 'symbol');
      	if (!is_object($symbol)) {
@@ -293,7 +292,8 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
      	}
      	$symbol->setLogicalId('symbol');
      	$symbol->setEqLogic_id($this->getId());
-     	$symbol->setIsVisible(1);
+     	$symbol->setIsVisible(0);
+       $symbol->setOrder(2);
      	$symbol->setType('info');
      	$symbol->setSubType('string');
      	$symbol->save();
@@ -306,12 +306,28 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
      	}
      	$id_name->setLogicalId('id_name');
      	$id_name->setEqLogic_id($this->getId());
-     	$id_name->setIsVisible(1);
+        $id_name->setOrder(3);
+     	$id_name->setIsVisible(0);
      	$id_name->setType('info');
      	$id_name->setSubType('string');
      	$id_name->save();
        
-         	$n_name = $this->getCmd(null, 'n_name');
+       
+             	$image = $this->getCmd(null, 'image');
+     	if (!is_object($image)) {
+     		$image = new coincoinCmd();
+     		$image->setName(__('image', __FILE__));
+     	}
+     	$image->setLogicalId('image');
+     	$image->setEqLogic_id($this->getId());
+     	$image->setIsVisible(1);
+        $image->setOrder(4);
+     	$image->setType('info');
+       $image->setDisplay("showNameOndashboard",0);// Sauvegarder et regarder le rendu.
+     	$image->setSubType('string');
+     	$image->save();
+       
+         $n_name = $this->getCmd(null, 'n_name');
      	if (!is_object($n_name)) {
      		$n_name = new coincoinCmd();
      		$n_name->setName(__('n_name', __FILE__));
@@ -319,9 +335,17 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
      	$n_name->setLogicalId('n_name');
      	$n_name->setEqLogic_id($this->getId());
      	$n_name->setIsVisible(1);
+         $n_name->setOrder(5);
+            $n_name->setDisplay("showNameOndashboard",0);// Sauvegarder et regarder le rendu.
      	$n_name->setType('info');
      	$n_name->setSubType('string');
      	$n_name->save();
+        
+      
+       
+       
+       
+     
      	
         	$current_price = $this->getCmd(null, 'current_price');
      	if (!is_object($current_price)) {
@@ -331,10 +355,29 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
      	$current_price->setLogicalId('current_price');
      	$current_price->setEqLogic_id($this->getId());
      	$current_price->setIsVisible(1);
+         $current_price->setOrder(6);
+                 $current_price->setDisplay("showNameOndashboard",0);// Sauvegarder et regarder le rendu.
      	$current_price->setType('info');
      	$current_price->setSubType('string');
      	$current_price->save();
      	
+       
+               	$currency = $this->getCmd(null, 'currency');
+     	if (!is_object($currency)) {
+     		$currency = new coincoinCmd();
+     		$currency->setName(__('currency', __FILE__));
+     	}
+     	$currency->setLogicalId('currency');
+     	$currency->setEqLogic_id($this->getId());
+     	$currency->setIsVisible(0);
+       $currency->setOrder(7);
+     	$currency->setType('info');
+     	$currency->setSubType('string');
+     	$currency->save();
+     	
+       
+       
+       
        
          	$price_change = $this->getCmd(null, 'price_change');
      	if (!is_object($price_change)) {
@@ -344,6 +387,7 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
      	$price_change->setLogicalId('price_change');
      	$price_change->setEqLogic_id($this->getId());
      	$price_change->setIsVisible(1);
+        $price_change->setOrder(8);
      	$price_change->setType('info');
      	$price_change->setSubType('string');
      	$price_change->save();
@@ -358,21 +402,12 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
      	$last_updated->setEqLogic_id($this->getId());
      	$last_updated->setIsVisible(1);
      	$last_updated->setType('info');
-     	$last_updated->setSubType('string');
+     	 $last_updated->setOrder(9);
+       $last_updated->setSubType('string');
      	$last_updated->save();
      	
        
-         	$image = $this->getCmd(null, 'image');
-     	if (!is_object($image)) {
-     		$image = new coincoinCmd();
-     		$image->setName(__('image', __FILE__));
-     	}
-     	$image->setLogicalId('image');
-     	$image->setEqLogic_id($this->getId());
-     	$image->setIsVisible(1);
-     	$image->setType('info');
-     	$image->setSubType('string');
-     	$image->save();
+    
      	
         	$total_volume = $this->getCmd(null, 'total_volume');
      	if (!is_object($total_volume)) {
@@ -382,6 +417,7 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
      	$total_volume->setLogicalId('total_volume');
      	$total_volume->setEqLogic_id($this->getId());
      	$total_volume->setIsVisible(1);
+        $total_volume->setOrder(10);
      	$total_volume->setType('info');
      	$total_volume->setSubType('string');
      	$total_volume->save();
@@ -395,6 +431,7 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
      	$high_24->setLogicalId('high_24');
      	$high_24->setEqLogic_id($this->getId());
      	$high_24->setIsVisible(1);
+        $high_24->setOrder(11);
      	$high_24->setType('info');
      	$high_24->setSubType('string');
      	$high_24->save();
@@ -408,22 +445,12 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
      	$low_24->setEqLogic_id($this->getId());
      	$low_24->setIsVisible(1);
      	$low_24->setType('info');
+        $low_24->setOrder(12);
      	$low_24->setSubType('string');
      	$low_24->save();
      	
        
-         	$currency = $this->getCmd(null, 'currency');
-     	if (!is_object($currency)) {
-     		$currency = new coincoinCmd();
-     		$currency->setName(__('currency', __FILE__));
-     	}
-     	$currency->setLogicalId('currency');
-     	$currency->setEqLogic_id($this->getId());
-     	$currency->setIsVisible(1);
-     	$currency->setType('info');
-     	$currency->setSubType('string');
-     	$currency->save();
-     	
+ 
        
        
        
@@ -494,7 +521,7 @@ $this->checkAndUpdateCmd('currency',	$value_currency);
         $eqlogic = $this->getEqLogic(); //récupère l'éqlogic de la commande $this
         switch ($this->getLogicalId()) {
         	case 'refresh': 
-        	       	       	
+        	     	$eqlogic->coincoin_value_set($message);   	       	
         	break;
         	
         	           
