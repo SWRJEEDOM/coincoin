@@ -1,0 +1,44 @@
+@font-face {
+	#font-family: "Digital-7";
+  	font-family: "fake receipt";
+	#src:  url("../fonts/digital-7.ttf") format("opentype");
+    src:  url("../fonts/fake receipt.ttf") format("opentype");
+  
+}
+.coincoin_template {
+	height:90%;
+	background-image:url("../images/coincoin.png");
+	background-repeat: no-repeat;
+	background-position: center 0%;
+	font-family: "fake receipt";
+	color: black!important;
+	background-size: 90% 95%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.coincoin_template div.coincoinTitle {
+	line-height:0.8;
+	font-weight:bold;
+	color:#505050;
+}
+.coincoin_template div.coincoinCdc{
+	letter-spacing: 1px;
+	color:#505050;
+	line-height: 0.75;
+}
+.coincoin_template .coincoinValue {
+	letter-spacing: 1px;
+	font-weight:bold;
+}
+.coincoin_template div.coincoinValueUnite{
+	line-height: 1;
+}
+.coincoin_template > #consumption,
+.coincoin_template > #production {
+	margin-top: -8%;
+	height: 72%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
