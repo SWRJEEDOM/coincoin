@@ -1,7 +1,7 @@
 {
 	"id" : "coincoin",
 	"name" : "CoinCoin",
-	"description" : "Plugin CoinCoin$",
+	"description" : "Plugin CoinCoin permet de récupérer les valeurs des principales cryptomonnaies (Bitcoin..)dans la devise de son choix (USD ou EUR) à partire de l'API CoinGecko.com",
 	"licence" : "AGPL",
 	"author" : "SWR",
 	"require" : "3.3.39",

@@ -1,0 +1,59 @@
+<div class="eqLogic eqLogic-widget allowResize #eqLogic_class# #class#" data-eqType="#eqType#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="#version#" data-translate-category="#translate_category#" data-category="#category#" data-tags="#tags#" style="width:#width#;height:#height#;background-color:#BGEnedis#!important;">
+  <link rel="stylesheet" href="plugins/coincoin/data/css/coincoin.template.css"/>
+  <div class="text-center widget-name">
+    <span class="warning" title="#alert_name#">
+      <i class='#alert_icon#'></i>
+    </span>
+    <span class="cmd refresh pull-right cursor" data-cmd_id="#refresh_id#">
+      <i class="fas fa-sync"></i>
+    </span>
+    <span class="reportModeVisible">#object_name#/#name_display#<span class="eqlogic">#object_name#</span></span>
+    <a href="#eqLink#" class="reportModeHidden">#object_name#/#name_display#<span class="object_name">#object_name#</span></a>
+
+  
+  </div>
+  <div class="coincoin_template text-center">
+    <div id="consumption">
+      <div class="coincoinTitle"><img width='64' height='64' src=#image#></div>
+      <div class="history cursor" data-cmd_id="#n_name_id#" title="#n_name_id#">
+         &nbsp;
+       
+        <div class="coincoinValueUnite"><span class="coincoinValue">#n_name# #current_price#</span><span class="coincoinUnite">#currency#</span></div>
+
+        
+          &nbsp;
+        <div class="coincoinCdc">total_volume  price change</div>
+        <div class="coincoinValueUnite"><span class="coincoinValue">#total_volume#   #price_change#</span><span class="coincoinUnite">#currency#</span></div>
+      
+        
+        &nbsp;
+        <div class="coincoinCdc">Low & Hi 24h</div>
+        <div class="coincoinValueUnite"><span class="coincoinValue">#low_24#</span><span class="coincoinUnite">#currency#   </span><span class="coincoinValue">#high_24#</span><span class="coincoinUnite">#currency#</span></div>
+     
+       &nbsp;
+        <div class="coincoinCdc">Last update</div>
+        <div class="coincoinValueUnite"><span class="coincoinValue">#last_updated#</span><span class="coincoinUnite"></span></div>
+        
+        
+      </div>
+      </div>
+   </div>
+  <div style="margin:-25% 0 0 20%;height:10%;width:60%;" class="toggleMeasure"></div>
+
+  <script>
+    var eqLogic = $('.eqLogic[data-eqLogic_uid=#uid#]');
+   
+    var eqlogic_height = eqLogic.height();
+    eqLogic.find('.coincoinCdc').css('font-size', (eqlogic_height*0.05)+'px');
+    eqLogic.find('.coincoinValue, .coincoinTitle').css('font-size', (eqlogic_height*0.06)+'px');
+    eqLogic.find('.coincoinUnite').css('font-size', (eqlogic_height*0.04)+'px');
+    if ('#refresh_id#' != ''){
+      $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
+        jeedom.cmd.execute({id: '#refresh_id#'});
+      });
+    }else{
+      $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').remove();
+    }
+
+  </script>
+</div>

@@ -26,6 +26,9 @@
 /* * ***************************Includes********************************* */
 require_once __DIR__ . '/../../../../core/php/core.inc.php';
 
+
+
+
 class coincoin extends eqLogic
 {
 	/*     * *************************Attributs****************************** */
@@ -33,14 +36,17 @@ class coincoin extends eqLogic
     /*
      * Permet de définir les possibilités de personnalisation du widget (en cas d'utilisation de la fonction 'toHtml' par exemple)
      * Tableau multidimensionnel - exemple: array('custom' => true, 'custom::layout' => false)
-     public static $_widgetPossibility = array();
      */
+    #public static $_widgetPossibility = array();
+     
 
      /*     * ***********************Methode static*************************** */
 
 
      // Fonction exécutée automatiquement toutes les minutes par Jeedom
      
+  
+  public static $_widgetPossibility = array('custom' => true); // c'est cette ligne qu'il faut ajouter
      
 
      
@@ -107,11 +113,11 @@ class coincoin extends eqLogic
      				$this->checkAndUpdateCmd('symbol',$jsonKey['symbol']);
      				
      				log::add('coincoin', 'info', 'name : ' . $jsonKey['name']);
-     				$this->checkAndUpdateCmd('n_name',"<p style='font-size:25px'><strong>".$jsonKey['name']."</strong></p>");
-
+     				#$this->checkAndUpdateCmd('n_name',"<p style='font-size:25px'><strong>".$jsonKey['name']."</strong></p>");
+					$this->checkAndUpdateCmd('n_name',$jsonKey['name']);
      				
      				log::add('coincoin', 'info', 'current_price : ' . $jsonKey['current_price']);
-     				$this->checkAndUpdateCmd('current_price',"<p style='font-size:25px'><strong>".$jsonKey['current_price']."</strong> ".ucwords($value_currency)."</p><br>");
+     				$this->checkAndUpdateCmd('current_price',$jsonKey['current_price']);
 
      				log::add('coincoin', 'info', 'price_change : ' . $jsonKey['price_change_percentage_24h']);
      				$this->checkAndUpdateCmd('price_change',$jsonKey['price_change_percentage_24h']);
@@ -120,8 +126,9 @@ class coincoin extends eqLogic
      				log::add('coincoin', 'info', 'last_updated : ' . $jsonKey['last_updated']);
      				$this->checkAndUpdateCmd('last_updated',$jsonKey['last_updated']);
      				
-     				log::add('coincoin', 'info', 'image : ' . "<img src=".$jsonKey['image'].">]");
-     				$this->checkAndUpdateCmd('image',"<img width='64' height='64' src=".$jsonKey['image'].">");
+     				log::add('coincoin', 'info', 'image : ' . jsonKey['image']);
+     				#$this->checkAndUpdateCmd('image',"<img width='64' height='64' src=".$jsonKey['image'].">");
+                    $this->checkAndUpdateCmd('image',$jsonKey['image']);
 
      				log::add('coincoin', 'info', 'total_volume : ' . $jsonKey['total_volume']);
      				$this->checkAndUpdateCmd('total_volume',$jsonKey['total_volume']);
@@ -367,6 +374,7 @@ class coincoin extends eqLogic
             $current_price->setLogicalId('current_price');
             $current_price->setEqLogic_id($this->getId());
             $current_price->setIsVisible(1);
+       $current_price->setIsHistorized(1);
             $current_price->setOrder(6);
                  $current_price->setDisplay("showNameOndashboard",0);// Sauvegarder et regarder le rendu.
                  $current_price->setType('info');
@@ -545,10 +553,53 @@ class coincoin extends eqLogic
 
     /*
      * Non obligatoire : permet de modifier l'affichage du widget (également utilisable par les commandes)
-     public function toHtml($_version = 'dashboard') {
-    
-     }
-     */
+    */
+     
+       public function toHtml($_version = 'dashboard') {
+		  $replace = $this->preToHtml($_version); //récupère les informations de notre équipement
+		  if (!is_array($replace)) {
+			  return $replace;
+		  }
+		  $this->emptyCacheWidget(); //vide le cache. Pratique pour le développement
+		  $version = jeedom::versionAlias($_version);
+		  
+      
+           $replace['#n_name#'] = ($this->getName() != '') ? $this-> getName() : "Default name";
+         
+         
+         
+        $currencyCmd = $this->getCmd('info', 'currency');
+	$replace['#currency#'] = (is_object($currencyCmd)) ? $currencyCmd->execCmd() : "";
+         
+            $current_priceCmd = $this->getCmd('info','current_price');
+	$replace['#current_price#'] = (is_object($current_priceCmd)) ? $current_priceCmd->execCmd() : "";
+
+         
+                    $imageCmd = $this->getCmd('info','image');
+	$replace['#image#'] = (is_object($imageCmd)) ? $imageCmd->execCmd() : "";
+         
+         
+                  $high_24Cmd = $this->getCmd('info','high_24');
+	$replace['#high_24#'] = (is_object($high_24Cmd)) ? $high_24Cmd->execCmd() : "";
+         
+                  $low_24Cmd = $this->getCmd('info','low_24');
+	$replace['#low_24#'] = (is_object($low_24Cmd)) ? $low_24Cmd->execCmd() : "";
+         
+         
+                           $price_changeCmd = $this->getCmd('info','price_change_24h');
+	$replace['#price_change#'] = (is_object($price_changeCmd)) ? $price_changeCmd->execCmd() : "";
+         
+                  $last_updatedCmd = $this->getCmd('info','last_updated');
+	$replace['#last_updated#'] = (is_object($last_updatedCmd)) ? $last_updatedCmd->execCmd() : "";
+         
+         
+                           $total_volumeCmd = $this->getCmd('info','total_volume');
+	$replace['#total_volume#'] = (is_object($total_volumeCmd)) ? $total_volumeCmd->execCmd() : "";
+         
+       return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'eqlogic', 'coincoin')));//  retourne notre template qui se nomme eqlogic pour le widget	  
+       }
+   
+     
 
     /*
      * Non obligatoire : permet de déclencher une action après modification de variable de configuration

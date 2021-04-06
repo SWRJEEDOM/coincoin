@@ -86,9 +86,9 @@ function addCmdToTable(_cmd) {
    });
  }
 $('.eqLogicAttr[data-l1key=configuration][data-l2key=measure_type]').on('change',function(){
-    if($(this).value()=='MoodeAudio') {
-        $('.moodaudiourl').show();
+    if($(this).value()=='coincoin') {
+        $('.coincoinurl').show();
     } else {
-        $('.moodaudiourl').hide();
+        $('.coincoinurl').hide();
     }
 });
