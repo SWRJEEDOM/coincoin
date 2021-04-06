@@ -10,7 +10,7 @@ La documentation générale relative à la conception de plugin est consultable 
 * [Documentation du plugin](https://doc.jeedom.com/fr_FR/dev/documentation_plugin) : Présentation de la mise en place d'une documentation car un bon plugin n'est rien sans documentation adéquate.
 * [Publication du plugin](https://doc.jeedom.com/fr_FR/dev/publication_plugin) : Description des pré-requis indispensables à la publication du plugin.
 
-
+# TEST
 1) Description
 Plugin permettant de récupérer les cours de bourse d’une action ou d’un indice mais également le taux de change entre deux devises (y compris crypto-monnaie comme le bitcoin) ainsi que les matières premières. Toutes les données sont généralement disponibles en temps réel mais la fréquence d’actualisation dépend du service utilisé.
 
