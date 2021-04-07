@@ -378,7 +378,7 @@ class coincoin extends eqLogic
             $current_price->setOrder(6);
                  $current_price->setDisplay("showNameOndashboard",0);// Sauvegarder et regarder le rendu.
                  $current_price->setType('info');
-                 $current_price->setSubType('string');
+                 $current_price->setSubType('numeric');
                  $current_price->save();
                  
                  
@@ -409,7 +409,7 @@ class coincoin extends eqLogic
                  $price_change->setIsVisible(1);
                  $price_change->setOrder(8);
                  $price_change->setType('info');
-                 $price_change->setSubType('string');
+                 $price_change->setSubType('numeric');
                  $price_change->save();
                  
                  
@@ -439,7 +439,7 @@ class coincoin extends eqLogic
                  $total_volume->setIsVisible(1);
                  $total_volume->setOrder(10);
                  $total_volume->setType('info');
-                 $total_volume->setSubType('string');
+                 $total_volume->setSubType('numeric');
                  $total_volume->save();
                  
                  
@@ -453,7 +453,7 @@ class coincoin extends eqLogic
                  $high_24->setIsVisible(1);
                  $high_24->setOrder(11);
                  $high_24->setType('info');
-                 $high_24->setSubType('string');
+                 $high_24->setSubType('numeric');
                  $high_24->save();
                  
                  $low_24 = $this->getCmd(null, 'low_24');
@@ -466,7 +466,7 @@ class coincoin extends eqLogic
                  $low_24->setIsVisible(1);
                  $low_24->setType('info');
                  $low_24->setOrder(12);
-                 $low_24->setSubType('string');
+                 $low_24->setSubType('numeric');
                  $low_24->save();
                  
                  $market_cap = $this->getCmd(null, 'market_cap'); 
@@ -479,7 +479,7 @@ class coincoin extends eqLogic
                  $market_cap->setIsVisible(1); 
                  $market_cap->setType('info'); 
                  $market_cap->setOrder(13); 
-                 $market_cap->setSubType('string'); 
+                 $market_cap->setSubType('numeric'); 
                  $market_cap->save(); 
                  
                  
@@ -493,7 +493,7 @@ class coincoin extends eqLogic
                  $market_cap_rank->setIsVisible(1); 
                  $market_cap_rank->setType('info'); 
                  $market_cap_rank->setOrder(14); 
-                 $market_cap_rank->setSubType('string'); 
+                 $market_cap_rank->setSubType('numeric'); 
                  $market_cap_rank->save(); 
                  
                  $price_change_24h = $this->getCmd(null, 'price_change_24h'); 
@@ -506,7 +506,7 @@ class coincoin extends eqLogic
                  $price_change_24h->setIsVisible(1); 
                  $price_change_24h->setType('info'); 
                  $price_change_24h->setOrder(15); 
-                 $price_change_24h->setSubType('string'); 
+                 $price_change_24h->setSubType('numeric'); 
                  $price_change_24h->save(); 
 
                  $ath = $this->getCmd(null, 'ath'); 
@@ -519,7 +519,7 @@ class coincoin extends eqLogic
                  $ath->setIsVisible(1); 
                  $ath->setType('info'); 
                  $ath->setOrder(16); 
-                 $ath->setSubType('string'); 
+                 $ath->setSubType('numeric'); 
                  $ath->save(); 
                  
                  
@@ -533,7 +533,7 @@ class coincoin extends eqLogic
                  $atl->setIsVisible(1); 
                  $atl->setType('info'); 
                  $atl->setOrder(17); 
-                 $atl->setSubType('string'); 
+                 $atl->setSubType('numeric'); 
                  $atl->save(); 
                  
                  
@@ -564,9 +564,10 @@ class coincoin extends eqLogic
 		  $version = jeedom::versionAlias($_version);
 		  
       
-           $replace['#n_name#'] = ($this->getName() != '') ? $this-> getName() : "Default name";
-         
-         
+          # $replace['#n_name#'] = ($this->getName() != '') ? $this-> getName() : "Default name";
+           $n_nameCmd = $this->getCmd('info', 'n_name');
+	$replace['#n_name#'] = (is_object($n_nameCmd)) ? $n_nameCmd->execCmd() : "";
+      
          
         $currencyCmd = $this->getCmd('info', 'currency');
 	$replace['#currency#'] = (is_object($currencyCmd)) ? $currencyCmd->execCmd() : "";
@@ -574,6 +575,9 @@ class coincoin extends eqLogic
             $current_priceCmd = $this->getCmd('info','current_price');
 	$replace['#current_price#'] = (is_object($current_priceCmd)) ? $current_priceCmd->execCmd() : "";
 
+    #            $current_priceID = $this->getObject_id();
+	# $replace['#current_price_id#'] = (is_object($current_priceID)) ? $current_priceID->execCmd() : "";
+     $replace['#current_price_id#'] = $this->getCmd('info','current_price')->getId();
          
                     $imageCmd = $this->getCmd('info','image');
 	$replace['#image#'] = (is_object($imageCmd)) ? $imageCmd->execCmd() : "";
