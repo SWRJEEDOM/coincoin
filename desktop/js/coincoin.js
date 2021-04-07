@@ -85,10 +85,19 @@ function addCmdToTable(_cmd) {
      }
    });
  }
-$('.eqLogicAttr[data-l1key=configuration][data-l2key=measure_type]').on('change',function(){
-    if($(this).value()=='coincoin') {
-        $('.coincoinurl').show();
-    } else {
-        $('.coincoinurl').hide();
+$('.eqLogicAttr[data-l1key=configuration][data-l2key=source_param]').on('change',function(){
+    if($(this).value()=='coingecko') {
+        $('.menu_coingecko').show();
+       $('.menu_binance').hide();
+     
     }
-});
+else {
+     $('.menu_coingecko').hide();
+  $('.menu_binance').show();
+}
+  
+}
+                                                                       
+                                                                       
+                                                                       
+                                                                       );
