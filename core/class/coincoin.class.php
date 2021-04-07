@@ -64,6 +64,13 @@ class coincoin extends eqLogic
      	
      	log::add('coincoin', 'info', '-----SET UP URL----------');
      	
+       
+       $source_param=$this->getConfiguration('source_param');
+       
+      	log::add('coincoin', 'info', 'Source : ' .$source_param);
+         if ($source_param=="coingecko"){
+       log::add('coincoin', 'info', '-----SET CoinGecko Web Socket----------');
+     	
      	$value_param=$this->getConfiguration('value_param');
      	log::add('coincoin', 'info', 'Value param : '.$value_param);
      	$value_currency=$this->getConfiguration('value_currency');
@@ -83,7 +90,7 @@ class coincoin extends eqLogic
      	
      	
      	
-     	log::add('coincoin', 'info', 'URL_radio : ' . $message);
+     	log::add('coincoin', 'info', 'URL_simple : ' . $message);
      	
      	
      	$dataArray = array("cmd"=>'add');
@@ -120,7 +127,7 @@ class coincoin extends eqLogic
      				$this->checkAndUpdateCmd('current_price',$jsonKey['current_price']);
 
      				log::add('coincoin', 'info', 'price_change : ' . $jsonKey['price_change_percentage_24h']);
-     				$this->checkAndUpdateCmd('price_change',$jsonKey['price_change_percentage_24h']);
+     				$this->checkAndUpdateCmd('price_change',round($jsonKey['price_change_percentage_24h'],2));
 
      				
      				log::add('coincoin', 'info', 'last_updated : ' . $jsonKey['last_updated']);
@@ -162,7 +169,121 @@ class coincoin extends eqLogic
      				
      			}
      		}} 
+         }
+         
+     
+            if ($source_param=="binance"){
+       log::add('coincoin', 'info', '-----SET Binance Web Socket----------');
+     	
+     	$value_param=$this->getConfiguration('value_param_short');
+     	log::add('coincoin', 'info', 'Value param : '.$value_param);
+     	
+        $value_currency=$this->getConfiguration('value_currency');
+     	$value_currency=strtoupper($value_currency);
+        log::add('coincoin', 'info', 'Value_currency : '.$value_currency);
+     	
+     	$api = "https://api.binance.com/api/v3/ticker/24hr";
+     	if (empty($value_param)){
+     		$cmd = "symbol=".$message.$value_currency."T";
      	}
+     	else{
+     		$cmd = "symbol=".$value_param.$value_currency."T";
+     	}
+     	$api=$api."?".$cmd;
+     	
+     	log::add('coincoin', 'info', 'Api : ' . $api);
+     	log::add('coincoin', 'info', '-----EXECUTION ADD COMMAND ----------');
+     	
+     	
+     	
+     	log::add('coincoin', 'info', 'URL_simple : ' . $message);
+     	
+     	
+     	$dataArray = array("cmd"=>'add');
+     	$ch = curl_init();
+     	$data = http_build_query($dataArray);
+     	$getUrl = $api;
+     	log::add('coincoin', 'info', 'URL_complet : ' . $getUrl);
+     	
+     	$json = file_get_contents($api);
+
+     	if($json === FALSE) { } else {
+//Step 2: Decodage du JSON et recuperation des infos souhaitees
+     		$jsonData = json_decode($json,true);
+//$scenario->setlog('-----DECODE-----');
+
+
+     		if(is_array($jsonData)){
+//$scenario->setlog('-----IMPORT SUCCESS-----');
+
+     		     			
+              log::add('coincoin', 'info', 'id_name : ' . $jsonData['id']);
+     				$this->checkAndUpdateCmd('id_name',$jsonData['id']);
+
+     				log::add('coincoin', 'info', 'symbol: ' . $jsonData['symbol']);
+     				$this->checkAndUpdateCmd('symbol',$jsonData['symbol']);
+     				
+     				log::add('coincoin', 'info', 'name : ' . $jsonData['symbol']);
+     				#$this->checkAndUpdateCmd('n_name',"<p style='font-size:25px'><strong>".$jsonKey['name']."</strong></p>");
+					$this->checkAndUpdateCmd('n_name',$jsonData['symbol']);
+     				
+     				log::add('coincoin', 'info', 'current_price : ' . $jsonData['lastPrice']);
+     				$this->checkAndUpdateCmd('current_price',$jsonData['lastPrice']);
+
+     	
+              
+              log::add('coincoin', 'info', 'price_change : ' . $jsonData['priceChangePercent']);
+     				$this->checkAndUpdateCmd('price_change',round($jsonData['priceChangePercent'],2));
+     				
+     				log::add('coincoin', 'info', 'last_updated : ' . $jsonData['count']);
+     				$this->checkAndUpdateCmd('last_updated',$jsonData['count']);
+     				
+     				log::add('coincoin', 'info', 'image : ' . $jsonData['image']);
+     				#$this->checkAndUpdateCmd('image',"<img width='64' height='64' src=".$jsonKey['image'].">");
+                    $this->checkAndUpdateCmd('image',$jsonData['image']);
+
+     				log::add('coincoin', 'info', 'total_volume : ' . $jsonData['volume']);
+     				$this->checkAndUpdateCmd('total_volume',$jsonData['volume']);
+
+
+     				log::add('coincoin', 'info', 'high_24h : ' . $jsonData['highPrice']);
+     				$this->checkAndUpdateCmd('high_24',$jsonData['highPrice']);
+     				
+     				log::add('coincoin', 'info', 'low_24h : ' . $jsonData['lowPrice']);
+     				$this->checkAndUpdateCmd('low_24',$jsonData['lowPrice']);
+     				
+     				log::add('coincoin', 'info', 'currency : ' .$value_currency);
+     				$this->checkAndUpdateCmd('currency',$value_currency);
+     				
+     				log::add('coincoin', 'info', 'market_cap : ' .$jsonData['market_cap']);
+     				$this->checkAndUpdateCmd('market_cap',$jsonData['market_cap']);
+     				
+     				
+     				log::add('coincoin', 'info', 'market_cap_rank : ' .$jsonData['market_cap_rank']);
+     				$this->checkAndUpdateCmd('market_cap_rank',$jsonData['market_cap_rank']);
+     				
+     				log::add('coincoin', 'info', 'price_change_24h : ' .$jsonData['priceChange']);
+     				$this->checkAndUpdateCmd('price_change_24h',$jsonData['priceChange']);
+     				
+     				log::add('coincoin', 'info', 'ath : '.$jsonData['ath']);
+     				$this->checkAndUpdateCmd('ath',$jsonData['ath']);
+     				
+     				log::add('coincoin', 'info', 'atl : '.$jsonData['atl']);
+     				$this->checkAndUpdateCmd('atl',$jsonData['atl']);
+     				
+              
+              
+              
+              foreach ($jsonData as $value=>$jsonKey) 
+     			{
+     			
+                  
+     				
+     			}
+     		}} 
+         }
+     
+     }
      	
      	
   /* public function cron() {
@@ -242,8 +363,8 @@ class coincoin extends eqLogic
     // Fonction exécutée automatiquement avant la mise à jour de l'équipement 
      public function preUpdate()
      {
-     	if (empty($this->getConfiguration('value_param'))) {
-     		throw new Exception(__('L\'URL du WEB SITE doit être renseigné', __FILE__));
+     	if (empty($this->getConfiguration('value_param')) and (empty($this->getConfiguration('value_param_short')))) {
+     		throw new Exception(__('Le symbol doit être renseigné', __FILE__));
      	} else {
 
             // throw new Exception(__('L\'URL est renseigné '.$this->getConfiguration('param1'),__FILE__));
@@ -258,6 +379,15 @@ class coincoin extends eqLogic
      	}
      	
      	
+       if (empty($this->getConfiguration('source_param'))) {
+     		throw new Exception(__('Le site web doit être renseigné', __FILE__));
+     	} else {
+
+            // throw new Exception(__('L\'URL est renseigné '.$this->getConfiguration('param1'),__FILE__));
+     	}
+       
+       
+       
      }
 
     // Fonction exécutée automatiquement après la mise à jour de l'équipement 
@@ -590,8 +720,12 @@ class coincoin extends eqLogic
 	$replace['#low_24#'] = (is_object($low_24Cmd)) ? $low_24Cmd->execCmd() : "";
          
          
-                           $price_changeCmd = $this->getCmd('info','price_change_24h');
-	$replace['#price_change#'] = (is_object($price_changeCmd)) ? $price_changeCmd->execCmd() : "";
+               $price_changeCmd = $this->getCmd('info','price_change_24h');
+	$replace['#price_change_24h#'] = (is_object($price_changeCmd)) ? $price_changeCmd->execCmd() : "";
+         
+                        $price_changeCmd = $this->getCmd('info','price_change');
+     	$replace['#price_change#'] = (is_object($price_changeCmd)) ? $price_changeCmd->execCmd() : "";
+         
          
                   $last_updatedCmd = $this->getCmd('info','last_updated');
 	$replace['#last_updated#'] = (is_object($last_updatedCmd)) ? $last_updatedCmd->execCmd() : "";
