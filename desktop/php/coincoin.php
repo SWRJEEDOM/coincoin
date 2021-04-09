@@ -121,47 +121,47 @@ $eqLogics = eqLogic::byType($plugin->getId());
 							
 
 							<legend><i class="fas fa-cogs"></i> {{SOURCE}}</legend>
-								<div class="form-group">
-									<label class="col-sm-3 control-label"> {{Website}}</label>
-									<div class="col-sm-7">
-										<select class="eqLogicAttr form-control"data-l1key="configuration" data-l2key="source_param">
+							<div class="form-group">
+								<label class="col-sm-3 control-label"> {{Website}}</label>
+								<div class="col-sm-7">
+									<select class="eqLogicAttr form-control"data-l1key="configuration" data-l2key="source_param">
 										<option value="coingecko">{{Coingecko}}</option>
 										<option value="binance">{{Binance}}</option>
-											
-										</select>
-									</div>
+										
+									</select>
 								</div>
-                                
-                                
-                                                  
-                            <div class="menu_coingecko">
+							</div>
+							
+							
+							
+							<div class="menu_coingecko">
 								<label class="col-sm-3 control-label">{{Symbol}}</label>
 								<div class="col-sm-7">
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="value_param" placeholder="{{bitcoin}}"/>
 								</div>
 							</div>
-																
-						                            
-                            <div class="menu_binance">
+							
+							
+							<div class="menu_binance">
 								<label class="col-sm-3 control-label">{{Symbol}}</label>
 								<div class="col-sm-7">
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="value_param_short" placeholder="{{BTC}}"/>
 								</div>
 							</div>
-                            
-                            
-                            		<div class="form-group">
-									<label class="col-sm-3 control-label"> {{Devise}}</label>
-									<div class="col-sm-7">
-										<select class="eqLogicAttr form-control"data-l1key="configuration" data-l2key="value_currency">
+							
+							
+							<div class="form-group">
+								<label class="col-sm-3 control-label"> {{Devise}}</label>
+								<div class="col-sm-7">
+									<select class="eqLogicAttr form-control"data-l1key="configuration" data-l2key="value_currency">
 										<option value="usd">{{USD}}</option>
 										<option value="eur">{{EUR}}</option>
-											
-										</select>
-									</div>
+										
+									</select>
 								</div>
-                                
-                                
+							</div>
+							
+							
 							
 							
 							<!-- Champ de saisie du cron d'auto-actualisation + assistant cron -->
