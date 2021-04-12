@@ -161,7 +161,18 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								</div>
 							</div>
 							
-							
+							<legend><i class="fas fa-cogs"></i> {{UPDATE}}</legend>
+							<div class="form-group">
+								<label class="col-sm-3 control-label"> {{Mode}}</label>
+								<div class="col-sm-7">
+									<select class="eqLogicAttr form-control"data-l1key="configuration" data-l2key="game_param">
+										<option value="hardcore">{{Hardcore : Mise a jour chaque minute}}</option>
+										<option value="advanced">{{Advanced : Mise a jour toutes les 10 minutes}}</option>
+                                        <option value="regular">{{Regular : Mise a jour toutes les heures}}</option>
+										 <option value="arcade">{{Arcade : Mise a jour toutes les jours}}</option>
+									</select>
+								</div>
+							</div>
 							
 							
 							<!-- Champ de saisie du cron d'auto-actualisation + assistant cron -->

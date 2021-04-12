@@ -72,6 +72,7 @@ class coincoin extends eqLogic
        log::add('coincoin', 'info', '-----SET CoinGecko Web Socket----------');
 
        $value_param=$this->getConfiguration('value_param');
+       $value_param=strtolower($value_param);
        log::add('coincoin', 'info', 'Value param : '.$value_param);
        $value_currency=$this->getConfiguration('value_currency');
        log::add('coincoin', 'info', 'Value_currency : '.$value_currency);
@@ -177,6 +178,7 @@ if ($source_param=="binance"){
    log::add('coincoin', 'info', '-----SET Binance Web Socket----------');
 
    $value_param=$this->getConfiguration('value_param_short');
+  $value_param=strtoupper($value_param);
    log::add('coincoin', 'info', 'Value param : '.$value_param);
 
    $value_currency=$this->getConfiguration('value_currency');
@@ -333,13 +335,14 @@ if ($source_param=="binance"){
 }
 
 
-  /* public function cron() {
-      foreach (eqLogic::byType(__CLASS__, true) as $eqLogic) {  // pour tous les équipements actifs de la classe moodeaudio
-        $eqLogic->coincoin_value_set('default');
-    }
-   
-     }
-*/
+  public static function cron() {
+      	foreach (eqLogic::byType(__CLASS__, true) as $eqLogic)  {
+              $game_param=$eqLogic->getConfiguration('game_param');
+                    if  ($game_param=="hardcore") {
+              log::add('coincoin', 'info', 'Mode : ' . $game_param);
+     		$eqLogic->coincoin_value_set('default');
+     	}}}
+     	
     /*
      * Fonction exécutée automatiquement toutes les 5 minutes par Jeedom
      public static function cron5() {
@@ -350,8 +353,11 @@ if ($source_param=="binance"){
      # Fonction exécutée automatiquement toutes les 10 minutes par Jeedom
      public static function cron10() {
      	foreach (eqLogic::byType(__CLASS__, true) as $eqLogic)  {
+              $game_param=$eqLogic->getConfiguration('game_param');
+                    if  ($game_param=="advanced") {
+              log::add('coincoin', 'info', 'Mode : ' . $game_param);
      		$eqLogic->coincoin_value_set('default');
-     	}}
+     	}}}
      	
 
     /*
@@ -374,19 +380,27 @@ if ($source_param=="binance"){
 
 
      
-    /* // Fonction exécutée automatiquement toutes les heures par Jeedom
+    // Fonction exécutée automatiquement toutes les heures par Jeedom
      public static function cronHourly() {
-  foreach (eqLogic::byType(__CLASS__, true) as $eqLogic) {  // pour tous les équipements actifs de la classe moodeaudio
   
-    }
-     }
-     */
+  	foreach (eqLogic::byType(__CLASS__, true) as $eqLogic)  {
+              $game_param=$eqLogic->getConfiguration('game_param');
+                    if  ($game_param=="regular") {
+              log::add('coincoin', 'info', 'Mode : ' . $game_param);
+     		$eqLogic->coincoin_value_set('default');
+     	}}}
+    
 
-    /*
-     * Fonction exécutée automatiquement tous les jours par Jeedom
+    
+     // Fonction exécutée automatiquement tous les jours par Jeedom
      public static function cronDaily() {
-     }
-     */
+    foreach (eqLogic::byType(__CLASS__, true) as $eqLogic)  {
+              $game_param=$eqLogic->getConfiguration('game_param');
+                    if  ($game_param=="arcade") {
+              log::add('coincoin', 'info', 'Mode : ' . $game_param);
+     		$eqLogic->coincoin_value_set('default');
+     	}}}
+     
 
      
 
@@ -433,7 +447,12 @@ if ($source_param=="binance"){
             // throw new Exception(__('L\'URL est renseigné '.$this->getConfiguration('param1'),__FILE__));
        }
 
+ if (empty($this->getConfiguration('game_param'))) {
+           throw new Exception(__('La fréquence du site web doit être renseigné', __FILE__));
+       } else {
 
+            // throw new Exception(__('L\'URL est renseigné '.$this->getConfiguration('param1'),__FILE__));
+       }
 
    }
 
