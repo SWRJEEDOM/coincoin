@@ -187,10 +187,12 @@ if ($source_param=="binance"){
 
    $api = "https://api.binance.com/api/v3/ticker/24hr";
    if (empty($value_param)){
-       $cmd = "symbol=".$message.$value_currency."T";
+       //$cmd = "symbol=".$message.$value_currency."T";
+	$cmd = "symbol=".$message.$value_currency."";
    }
    else{
-       $cmd = "symbol=".$value_param.$value_currency."T";
+       //$cmd = "symbol=".$value_param.$value_currency."T";
+	$cmd = "symbol=".$value_param.$value_currency."";
    }
    $api=$api."?".$cmd;
 
